@@ -1,24 +1,45 @@
-import torch 
+import os
+import preprocessing
+import torch
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+
+def load_test_data(data_folder="data/test"):
+    x_list = []
+    y_list = []
+    for chord in os.listdir(data_folder):
+        if not chord.startswith("."):
+            chord_folder = os.path.join(data_folder, chord)
+            if os.path.isdir(chord_folder):
+                for wav_file in os.listdir(chord_folder):
+                    file_path = os.path.join(chord_folder, wav_file)
+                    audio_data, sample_data = preprocessing.load_and_normalize(file_path)
+                    spectrogram = preprocessing.spectrogram(audio_data, sample_data)
+                    x_list.append(spectrogram)
+                    y_list.append(chord)
+
+    x = np.array(x_list)
+    y = np.array(y_list)
+    x = np.array([spectrogram.reshape(1, spectrogram.shape[0], spectrogram.shape[1]) for spectrogram in x])
+    label_encoder = LabelEncoder()
+    y = label_encoder.fit_transform(y)
+    x = torch.tensor(x, dtype=torch.float32)
+    y = torch.tensor(y, dtype=torch.long)
+    return x, y
 
 
-def evaluate(model, batch_size=32):
-    # Pretpostavljamo da imamo X_test i y_test
-    X_test = torch.tensor(X_test, dtype=torch.float32)
-    y_test = torch.tensor(y_test, dtype=torch.long)
-
-    model.eval()  # Model u modusu evaluacije
-    correct = 0
+def test(model, x, y, batch_size=32):
     total = 0
-
-    with torch.no_grad():  # Nema unazad propagacije
-        for i in range(0, len(X_test), batch_size):
-            inputs = X_test[i:i + batch_size]
-            labels = y_test[i:i + batch_size]
+    correct = 0
+    with torch.no_grad():
+        for i in range(0, len(x), batch_size):
+            inputs = x[i:i + batch_size]
+            labels = y[i:i + batch_size]
             
-            outputs = model(inputs)  # Dobijanje izlaza
-            _, predicted = torch.max(outputs, 1)  # Predikcija klasa
-            total += labels.size(0)  # Ukupno uzoraka
-            correct += (predicted == labels).sum().item()  # Broj tačnih predikcija
+            outputs = model(inputs)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
 
-    accuracy = correct / total  # Tačnost modela
-    print(f"Accuracy on test data: {accuracy * 100:.2f}%")  # Izračunavanje tačnosti
+    accuracy = correct / total
+    print("Test Accuracy:", accuracy * 100, "%")

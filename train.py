@@ -33,7 +33,7 @@ def create_model(x, y):
     return ChordRecognitionModel(input_shape, num_classes), x, y
 
 
-def train(model, x, y, batch_size=64, num_epochs=10, learning_rate=0.001): #dobro batch_size=32, num_epochs=10, learning_rate=0.001
+def train(model, x, y, batch_size=32, num_epochs=10, learning_rate=0.001): #dobro batch_size=32, num_epochs=10, learning_rate=0.001
     x = torch.tensor(x, dtype=torch.float32)
     y = torch.tensor(y, dtype=torch.long)
     
