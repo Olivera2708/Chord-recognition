@@ -14,8 +14,8 @@ def load_test_data(data_folder="data/test"):
                 for wav_file in os.listdir(chord_folder):
                     file_path = os.path.join(chord_folder, wav_file)
                     audio_data, sample_data = preprocessing.load_and_normalize(file_path)
-                    spectrogram = preprocessing.spectrogram(audio_data, sample_data)
-                    x_list.append(spectrogram)
+
+                    x_list.append(preprocessing.get_features(audio_data, sample_data))
                     y_list.append(chord)
 
     x = np.array(x_list)
