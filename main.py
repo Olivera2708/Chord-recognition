@@ -3,9 +3,10 @@ import test
 import os
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.models import load_model
-from tensorflow.keras.optimizers import Adam
 import numpy as np
-from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import precision_score, recall_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def create_cnn_model():
@@ -32,6 +33,16 @@ def show_cnn_stats():
     print("Testing Accuracy: ", cnn_score_test[1])
     print("Testing Precision:", precision_macro)
     print("Testing Recall:", recall_macro)
+
+
+def show_plot(y_test, y_pred):
+    cm = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Reds')
+    plt.xlabel('Predicted')
+    plt.ylabel('True')
+    plt.title('Confusion Matrix')
+    plt.show()
 
 
 if __name__ == "__main__":

@@ -1,14 +1,11 @@
 import os
 import preprocessing
 import numpy as np
-import tensorflow as tf
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras import metrics
 from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras import layers, models
-
+from sklearn.model_selection import train_test_split
 
 def load_training_data(data_folder="data/training"):
     x_list = []
@@ -43,12 +40,13 @@ def train(x, y):
 
     cnn_model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
     early_stopping = EarlyStopping(monitor='val_accuracy', patience=4, restore_best_weights=True)
-
-    cnn_model.fit(x,
-                  y,
+    
+    x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2, shuffle=True)
+    cnn_model.fit(x_train,
+                  y_train,
                   epochs=50,
                   batch_size=32,
-                  validation_data=(x, y),
+                  validation_data=(x_val, y_val),
                   verbose=2,
                   callbacks=[early_stopping]
                   )
