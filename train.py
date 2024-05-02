@@ -1,10 +1,13 @@
 import os
 import preprocessing
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.layers import Dense, Input, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import metrics
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras import layers, models
 
 
 def load_training_data(data_folder="data/training"):
@@ -29,7 +32,9 @@ def train(x, y):
 
     cnn_model = Sequential([
         Input(shape=(x.shape[1],)),
+        Dense(512, activation='relu'),
         Dense(256, activation='relu'),
+        Dropout(0.5),
         Dense(128, activation='relu'),
         Dense(64, activation='relu'),
         Dense(32, activation='relu'),
@@ -37,11 +42,15 @@ def train(x, y):
     ])
 
     cnn_model.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+    early_stopping = EarlyStopping(monitor='val_accuracy', patience=4, restore_best_weights=True)
+
     cnn_model.fit(x,
                   y,
-                  epochs=20,
+                  epochs=50,
                   batch_size=32,
                   validation_data=(x, y),
-                  verbose=2)
+                  verbose=2,
+                  callbacks=[early_stopping]
+                  )
 
     return cnn_model
