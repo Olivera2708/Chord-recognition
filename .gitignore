@@ -175,5 +175,6 @@ pyrightconfig.json
 
 #model files
 *.pth
+*.h5
 
 # End of https://www.toptal.com/developers/gitignore/api/python

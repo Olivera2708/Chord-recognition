@@ -1,5 +1,5 @@
 librosa
 scikit-learn
-torch
 numpy
-pandas
+tensorflow
+keras
