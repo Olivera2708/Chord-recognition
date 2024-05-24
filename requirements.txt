@@ -2,3 +2,5 @@ librosa
 scikit-learn
 numpy
 tensorflow
+seaborn
+matplotlib

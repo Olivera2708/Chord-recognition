@@ -5,7 +5,6 @@ import numpy as np
 from sklearn.metrics import precision_score, recall_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import accuracy_score
 
 
 def load_training_data():
