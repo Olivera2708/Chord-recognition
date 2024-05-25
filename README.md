@@ -1,5 +1,7 @@
 # Chord Recognition README
 
+ ![Poster](Poster.png)
+
 ## Problem Definition
 The objective of this project was to develop a model capable of analyzing audio recordings and recognizing the chords played. Musicians, music teachers, and music enthusiasts often desire to identify the chords played in songs for learning or playing purposes. Manual chord recognition can be slow and requires a certain level of musical knowledge, posing challenges for beginners and amateur musicians.
 
@@ -37,5 +39,3 @@ The dataset was divided into training and test sets, with 20% of the training se
 The project was implemented using the following technologies:
 - Programming Language: Python
 - Libraries: librosa, scikit-learn, tensorflow, numpy, and os
-
-  ![Poster](Poster.png)
