@@ -2,7 +2,7 @@ import train
 import test
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
-from sklearn.metrics import precision_score, recall_score, confusion_matrix
+from sklearn.metrics import precision_score, recall_score, confusion_matrix, accuracy_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -16,52 +16,56 @@ def load_training_data():
 
 def show_cnn_stats(x_train, y_train, x_test, y_test):
     cnn_model = train.train_cnn(x_train, y_train)
-
     y_pred = np.argmax(cnn_model.predict(x_test), axis=1)
+    
+    accuracy = accuracy_score(y_test, y_pred)
     precision_macro = precision_score(y_test, y_pred, average='macro')
     recall_macro = recall_score(y_test, y_pred, average='macro')
 
-    print(f'Testing Accuracy {round(np.mean(y_pred==y_test)*100, 4)}%')
+    print(f'Testing Accuracy {round(accuracy*100, 4)}%')
     print(f"Testing Precision: {round(precision_macro*100, 4)}%")
     print(f"Testing Recall: {round(recall_macro*100, 4)}%")
 
 def show_knn_stats(x_train, y_train, x_test, y_test):
     knn_model = train.train_knn(x_train, y_train)
-
     y_pred = knn_model.predict(x_test)
+
+    accuracy = accuracy_score(y_test, y_pred)
     precision_macro = precision_score(y_test, y_pred, average='macro')
     recall_macro = recall_score(y_test, y_pred, average='macro')
 
-    print(f'Testing Accuracy {round(np.mean(y_pred==y_test)*100, 4)}%')
+    print(f'Testing Accuracy {round(accuracy*100, 4)}%')
     print(f"Testing Precision: {round(precision_macro*100, 4)}%")
     print(f"Testing Recall: {round(recall_macro*100, 4)}%")
 
 def show_svm_stats(x_train, y_train, x_test, y_test):
     svm_model = train.train_svm(x_train, y_train)
-
     y_pred = svm_model.predict(x_test)
+
+    accuracy = accuracy_score(y_test, y_pred)
     precision_macro = precision_score(y_test, y_pred, average='macro')
     recall_macro = recall_score(y_test, y_pred, average='macro')
 
-    print(f'Testing Accuracy {round(np.mean(y_pred==y_test)*100, 4)}%')
+    print(f'Testing Accuracy {round(accuracy*100, 4)}%')
     print(f"Testing Precision: {round(precision_macro*100, 4)}%")
     print(f"Testing Recall: {round(recall_macro*100, 4)}%")
 
 def show_rfc_stats(x_train, y_train, x_test, y_test):
     rfc_model = train.train_rfc(x_train, y_train)
-
     y_pred = rfc_model.predict(x_test)
+
+    accuracy = accuracy_score(y_test, y_pred)
     precision_macro = precision_score(y_test, y_pred, average='macro')
     recall_macro = recall_score(y_test, y_pred, average='macro')
 
-    print(f'Testing Accuracy {round(np.mean(y_pred==y_test)*100, 4)}%')
+    print(f'Testing Accuracy {round(accuracy*100, 4)}%')
     print(f"Testing Precision: {round(precision_macro*100, 4)}%")
     print(f"Testing Recall: {round(recall_macro*100, 4)}%")
 
 def show_plot(y_test, y_pred):
     cm = confusion_matrix(y_test, y_pred)
     plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Reds')
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Purples')
     plt.xlabel('Predicted')
     plt.ylabel('True')
     plt.title('Confusion Matrix')
