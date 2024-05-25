@@ -37,3 +37,5 @@ The dataset was divided into training and test sets, with 20% of the training se
 The project was implemented using the following technologies:
 - Programming Language: Python
 - Libraries: librosa, scikit-learn, tensorflow, numpy, and os
+
+  ![Poster](Poster.png)
