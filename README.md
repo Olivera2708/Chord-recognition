@@ -11,7 +11,7 @@ Automatic chord recognition is essential as it facilitates easier and faster acc
 Additionally, the technology explored in this project lays the foundation for the development of mobile applications capable of real-time song analysis and automatic chord display. Such applications would enable musicians to effortlessly follow chords while listening to music, making the learning and performance of songs much more accessible. Furthermore, music teachers could leverage these applications as educational tools, while composers could draw inspiration for new musical compositions.
 
 ## Dataset
-The datasets utilized for this project were sourced from the Kaggle platform, specifically the [Guitar Chords Dataset v3](https://www.kaggle.com/mattcarter865/guitar-chords-dataset-v3). This dataset comprises 8 chords (Am, Bb, Bdim, C, Dm, Em, F, G) played on various guitars and in 4 different ways. It was divided into training (1440 .wav files) and test (320 .wav files) sets.
+The datasets utilized for this project were sourced from the Kaggle platform, specifically the [Guitar Chords Dataset v3](https://www.kaggle.com/datasets/fabianavinci/guitar-chords-v3). This dataset comprises 8 chords (Am, Bb, Bdim, C, Dm, Em, F, G) played on various guitars and in 4 different ways. It was divided into training (1440 .wav files) and test (320 .wav files) sets.
 
 ## Data Preprocessing
 Data preprocessing involved normalization to ensure consistency during model training. Feature extraction was carried out using the librosa library, generating the following features:
