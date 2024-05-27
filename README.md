@@ -1,4 +1,4 @@
-# Chord Recognition README
+# Chord Recognition
 
  ![Poster](Poster.png)
 
